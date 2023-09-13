@@ -1,0 +1,128 @@
+---
+author: "Your Name"
+title: "Computer Project 2: Regression"
+date: '`r Sys.Date()`'
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Car Stopping Distance
+
+The cars data set in R lists car speeds (in mph) and stopping distances (in ft).
+
+```{r}
+plot(cars$speed, cars$dist, xlab="Speed (mph)", ylab="Distance (ft)", col='blue')
+```
+
+The correlation between speed and distance is
+
+```{r}
+r = cor(cars$speed, cars$dist)
+r
+```
+
+_Comment on the sign (+/-) and magnitude (close to 1 or close to 0) of the correlation._
+\newpage
+
+
+We can use regression to predict stopping distances for speeds not in the data set.
+
+```{r}
+model = lm(cars$dist ~ cars$speed)
+plot(cars$speed, cars$dist, xlab="Speed (mph)", ylab="Distance (ft)", col='blue')
+abline(model, col='green')
+```
+
+The following output gives information about the regression line.
+
+```{r}
+summary(model)
+```
+
+_Use the output to write down the equation for the regression line._
+
+\newpage
+
+The slope and y-intercept of the regression line are:
+```{r}
+b = model$coefficients[1]
+b
+
+m = model$coefficients[2]
+m
+```
+
+The predicted stopping distance for a car going 20 mph is
+```{r}
+m * 20 + b
+```
+
+The RMS error for the regression line is
+
+```{r}
+rms = sd(cars$dist) * sqrt(1 - r**2)
+rms
+```
+
+So, if a car is traveling at 20 mph, its stopping distance is `r m*20 + b` ft give or
+take about `r rms` feet.
+
+_Repeat the calculations above to predict the stopping distance of a car traveling 
+at 25 mph._
+
+_Comment on the accuracy of using the regression line to predict the stopping distance
+of a car traveling at 75 mph._
+
+\newpage
+
+# Tree Volume 
+
+The trees data set in R lists tree heights (ft), diamters (in) and volumes (cubic ft).
+
+```{r}
+plot(trees$Girth, trees$Volume, xlab="Girth (in)", ylab="Volume (cubic ft)", col='green')
+```
+
+```{r}
+plot(trees$Height, trees$Volume, xlab="Height (ft)", ylab="Volume (cubic ft)", col='blue')
+```
+
+\newpage
+
+_Based on the plots, which variable do you think would be better at predicting tree volume?_
+
+The correlations of volume with the other variables are:
+```{r}
+cor(trees$Girth, trees$Volume)
+cor(trees$Height, trees$Volume)
+```
+
+_Comment on the sign and magnitude of the two correlations._
+
+_Fill in the blanks to find the regression line for predicting volume from one 
+of the other variables.  Also remove the # symbols._
+
+```{r}
+#model = lm(trees$??? ~ trees$Volume)
+#plot(trees$???, trees$Volume, xlab="???", ylab="Volume (cubic ft)"", col='blue')
+#abline(model, col='green')
+```
+
+The following output gives information about the regression line.
+
+```{r}
+#summary(model)
+```
+
+_Use the output to write down the equation for the regression line._
+
+
+
+
+
+
+
+
